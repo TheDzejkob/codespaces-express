@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Produkty | Jednoduchý e-shop</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Produkty</h1>
+  <nav>
+    <ul>
+      <li><a href="/">Domů</a></li>
+      <li><a href="/products">Produkty</a></li>
+      <li><a href="/products/new">Přidat produkt</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <h2>Seznam produktů</h2>
+    
+    <div class="categories">
+      <h3>Filtrovat podle kategorie:</h3>
+      <a href="/products">Všechny</a>
+      <a href="/products/category/1">Elektronika</a>
+      <a href="/products/category/2">Oblečení</a>
+      <a href="/products/category/3">Potraviny</a>
+    </div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Název</th>
+          <th>Cena</th>
+          <th>Kategorie</th>
+          <th>Dodavatel</th>
+          <th>Akce</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(product => { %>
+          <tr>
+            <td><%= product.id %></td>
+            <td><%= product.name %></td>
+            <td><%= product.price %> Kč</td>
+            <td><%= product.category_name %></td>
+            <td><%= product.supplier_name %></td>
+            <td>
+              <a href="/products/edit/<%= product.id %>" class="button edit">Upravit</a>
+              <a href="/products/delete/<%= product.id %>" class="button delete" onclick="return confirm('Opravdu chcete smazat tento produkt?')">Smazat</a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

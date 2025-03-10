@@ -4,12 +4,13 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
-//připojení k databázi (nastavení type shit)
+// připojení k databázi
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '', 
-  database: 'shop_db'
+  password: 'heslo', 
+  database: 'shop_db',
+  port: 3307
 });
 
 // Připojení k databázi
@@ -30,7 +31,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-//JOIN
+// JOIN
 app.get('/products', (req, res) => {
   const query = `
     SELECT p.*, c.name as category_name, s.name as supplier_name 
@@ -45,7 +46,7 @@ app.get('/products', (req, res) => {
   });
 });
 
-//WHERE
+// WHERE
 app.get('/products/category/:id', (req, res) => {
   const categoryId = req.params.id;
   const query = `
@@ -103,7 +104,7 @@ app.get('/products/edit/:id', (req, res) => {
   });
 });
 
-//UPDATE
+// UPDATE
 app.post('/products/update/:id', (req, res) => {
   const productId = req.params.id;
   const { name, price, category_id, supplier_id } = req.body;
@@ -119,7 +120,7 @@ app.post('/products/update/:id', (req, res) => {
   });
 });
 
-//DELETE
+// DELETE
 app.get('/products/delete/:id', (req, res) => {
   const productId = req.params.id;
   const query = 'DELETE FROM products WHERE id = ?';
